@@ -33,6 +33,8 @@ h1.title {
   font-size: 2em;
   font-style: normal;
 }
+
+
 table#movies {
   margin: 10px;
   border-collapse: collapse;
@@ -59,7 +61,6 @@ form label {
   font-weight: bold;
   color: maroon;
 }
-
-table#movies th.hilite{
-  background-color:yellow;
+table#movies th.hilite {
+  background-color: yellow;
 }
