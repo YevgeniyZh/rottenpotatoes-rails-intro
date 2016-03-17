@@ -12,6 +12,7 @@ class MoviesController < ApplicationController
 
   def index
     @movies = Movie.all
+    @all_ratings = ['G','PG','PG-13','R']
     # sorting by title and relese date
       sort = params[:sort] || session[:sort]
     case sort
@@ -54,5 +55,6 @@ class MoviesController < ApplicationController
   end
   
   
+
 
 end
