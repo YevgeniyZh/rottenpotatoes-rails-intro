@@ -11,8 +11,13 @@ class MoviesController < ApplicationController
   end
 
   def index
-    @movies = Movie.all
-    @all_ratings = ['G','PG','PG-13','R']
+    @movies = Movie.movies(params[:ratings], params[:order_by])
+    @ratings = Movie.ratings
+    @filters=if params[:rating].nil?
+    @ratings
+    else 
+    params[:ratings]
+  end
     # sorting by title and relese date
       sort = params[:sort] || session[:sort]
     case sort
@@ -22,8 +27,7 @@ class MoviesController < ApplicationController
     when 'release_date'
       ordering,@date_header = {:order => :release_date}, 'hilite'
       @movies = Movie.order(:release_date)
-    end
-    
+   end
   end
 
   def new
