@@ -14,7 +14,7 @@ class MoviesController < ApplicationController
     @movies = Movie.movies(params[:ratings], params[:order_by])
     @ratings = Movie.ratings
     @filters=if params[:ratings].nil?
-    {}
+    @ratings
     else 
     params[:ratings]
   end
