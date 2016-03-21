@@ -9,9 +9,9 @@
 %table#movies
   %thead
     %tr
-      %th{:class => @title_header}= link_to 'Movie Title', movies_path(:sort => 'title'), :id => 'title_header'
+      %th{:class => (:hilite if params[:order_by]=='title')}= link_to 'Movie Title', movies_path(:order_by => :title), :id => :title_header
       %th Rating
-      %th{:class => @date_header}= link_to 'Release Date', movies_path(:sort => 'release_date'), :id => 'release_date_header'
+      %th{:class => (:hilite if params[:order_by]=='release_date')}=link_to 'Release Date', movies_path(:order_by => 'release_date'), :id => :release_date_header
       // %th{:class => @rating_header}= link_to 'Rating', movies_path(:sort => 'rating'), :id => 'submit_tag'
       %th More Info
   %tbody

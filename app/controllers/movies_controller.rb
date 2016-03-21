@@ -13,8 +13,8 @@ class MoviesController < ApplicationController
   def index
     @movies = Movie.movies(params[:ratings], params[:order_by])
     @ratings = Movie.ratings
-    @filters=if params[:rating].nil?
-    @ratings
+    @filters=if params[:ratings].nil?
+    {}
     else 
     params[:ratings]
   end
