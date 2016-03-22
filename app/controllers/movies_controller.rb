@@ -11,23 +11,26 @@ class MoviesController < ApplicationController
   end
 
   def index
-    @movies = Movie.movies(params[:ratings], params[:order_by])
-    @ratings = Movie.ratings
-    @filters=if params[:ratings].nil?
-    @ratings
-    else 
-    params[:ratings]
-  end
-    # sorting by title and relese date
-      sort = params[:sort] || session[:sort]
+  sort = params[:sort] || session[:sort]
     case sort
     when 'title'
-      ordering,@title_header = {:order => :title}, 'hilite'
-      @movies = Movie.order(:title)
+      ordering,@title_header = {:title => :asc}, 'hilite'
     when 'release_date'
-      ordering,@date_header = {:order => :release_date}, 'hilite'
-      @movies = Movie.order(:release_date)
-   end
+      ordering,@date_header = {:release_date => :asc}, 'hilite'
+    end
+    @all_ratings = Movie.all_ratings
+    @selected_ratings = params[:ratings] || session[:ratings] || {}
+
+    if @selected_ratings == {}
+      @selected_ratings = Hash[@all_ratings.map {|rating| [rating, rating]}]
+    end
+
+    if params[:sort] != session[:sort] or params[:ratings] != session[:ratings]
+      session[:sort] = sort
+      session[:ratings] = @selected_ratings
+      redirect_to :sort => sort, :ratings => @selected_ratings and return
+    end
+    @movies = Movie.where(rating: @selected_ratings.keys).order(ordering)
   end
 
   def new
